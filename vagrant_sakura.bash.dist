@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export SAKURA_ACCESS_TOKEN='********-****-****-****-************'
+export SAKURA_ACCESS_TOKEN_SECRET='****************************************************************'
+export SAKURA_SSHKEY_ID='************'
+export SAKURA_PRIVATE_KEY_PATH='~/.ssh/id_rsa'
+
+vagrant $*
+

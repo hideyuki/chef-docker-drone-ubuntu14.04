@@ -46,6 +46,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
 
+  # Sakura no Cloud Provider
+  config.vm.provider :sakura do |sakura, override|
+    sakura.access_token = "#{ENV['SAKURA_ACCESS_TOKEN']}"
+    sakura.access_token_secret = "#{ENV['SAKURA_ACCESS_TOKEN_SECRET']}"
+    sakura.sshkey_id = "#{ENV['SAKURA_SSHKEY_ID']}"
+    sakura.disk_source_archive = '112600321612'  # Ubuntu Server 14.04 LTS 64bit
+    sakura.server_name = 'droneio-symfony10'
+    sakura.server_plan = '4004'  # Server Plan/4Core-4GB. You can see the other options with the command 'vagrant sakura-list-id'
+    sakura.zone_id = 'is1a' # DO NOT CHANGE! Only is1a for free-use
+
+    override.vm.box = 'dummy'
+    override.ssh.username = 'ubuntu'
+    override.ssh.private_key_path = File.expand_path "#{ENV['SAKURA_PRIVATE_KEY_PATH']}"
+    override.omnibus.chef_version = '11.10' # Use omnibus
+  end
+
   # Provisioning!
   # Chef
   config.vm.provision :chef_solo do |chef|
