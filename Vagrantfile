@@ -18,6 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: '192.168.33.33'
+  config.vm.network :forwarded_port, host: 40080, guest: 80
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
